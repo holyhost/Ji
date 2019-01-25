@@ -9,6 +9,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        packagingOptions {
+            exclude 'META-INF/proguard/androidx-annotations.pro'
+        }
     }
     buildTypes {
         release {
@@ -25,4 +28,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // 用于画饼状图，柱状图等
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+
+    //用于线程控制等其他功能
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
 }
