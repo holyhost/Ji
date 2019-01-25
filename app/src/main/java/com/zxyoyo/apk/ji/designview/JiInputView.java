@@ -34,7 +34,7 @@ public class JiInputView implements View.OnClickListener{
     private View rootView;// this JiInputView layout
 
     private Button btn_0,btn_1,btn_2,btn_3,btn_4,btn_5,btn_6,btn_7,btn_8,btn_9,btn_delete,btn_finish,btn_dot;
-    private ImageView iv_photo;//图片选择
+    private ImageView iv_photo,iv_clear;//图片选择
     private EditText et_number;// 输入的数值
 
 
@@ -50,7 +50,10 @@ public class JiInputView implements View.OnClickListener{
         onInitData();
     }
 
-
+    //获取输入框中的值
+    public double getValue(){
+        return number;
+    }
     public JiInputView(Context context) {
         this.context = context;
     }
@@ -69,6 +72,7 @@ public class JiInputView implements View.OnClickListener{
         btn_7 = rootView.findViewById(R.id.btn_7);
         btn_8 = rootView.findViewById(R.id.btn_8);
         btn_9 = rootView.findViewById(R.id.btn_9);
+        iv_clear = rootView.findViewById(R.id.iv_clear);
         btn_finish = rootView.findViewById(R.id.btn_finish);
         btn_dot = rootView.findViewById(R.id.btn_dot);
         btn_delete = rootView.findViewById(R.id.btn_delete);
@@ -87,6 +91,8 @@ public class JiInputView implements View.OnClickListener{
         btn_dot.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
         btn_finish.setOnClickListener(this);
+        iv_clear.setOnClickListener(this);
+
     }
 
     public void onInitData(){
@@ -156,6 +162,9 @@ public class JiInputView implements View.OnClickListener{
             case R.id.btn_finish:
                 onDestroy();
                 break;
+            case R.id.iv_clear:
+                clearInputData();
+                break;
         }
     }
 
@@ -169,6 +178,11 @@ public class JiInputView implements View.OnClickListener{
         changeText(text+"");
     }
 
+    /**
+     * 输入检查
+     * @param input 点击的数值
+     * @return true 有问题，false没问题
+     */
     private boolean checkInput(String input){
         if(characters == null) {
             characters = new ArrayList<>();
@@ -185,6 +199,18 @@ public class JiInputView implements View.OnClickListener{
         if(characters.size()>0&&TextUtils.equals(characters.get(0),"0")&& !TextUtils.equals(".",input)) return true;
 
         return false;
+    }
+
+    /**
+     * 清空输入内容
+     */
+    private void clearInputData(){
+        if(et_number !=null){
+            et_number.setText("");
+        }
+        if(characters!=null){
+            characters.clear();
+        }
     }
 
     private String getResult(){

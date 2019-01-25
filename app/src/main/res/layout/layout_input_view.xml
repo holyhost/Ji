@@ -19,26 +19,40 @@
             android:layout_height="56dp" />
 
         <EditText
+            android:layout_weight="1"
             android:maxLength="14"
             android:maxLines="1"
             android:gravity="right|center_vertical"
             android:focusable="false"
             android:paddingRight="10dp"
-            android:hint="input"
+            android:hint="@string/ji_input_view_hint"
             android:id="@+id/et_number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@null"
             android:minHeight="50dp" />
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_clear_black_24dp"
+            android:id="@+id/iv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
+    <View
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp">
 
         <Button
+            android:textColor="@color/colorWhite"
             android:id="@+id/btn_1"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -54,6 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="2"
+            android:textColor="@color/colorWhite"
 
             app:layout_constraintDimensionRatio="W,3:4"
             app:layout_constraintLeft_toRightOf="@+id/btn_1"
@@ -63,6 +78,7 @@
 
         <Button
             android:id="@+id/btn_3"
+            android:textColor="@color/colorWhite"
 
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -74,10 +90,12 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_delete"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="delete"
+            android:text="@string/ji_input_view_delete"
             app:layout_constraintBottom_toBottomOf="@id/btn_6"
             app:layout_constraintLeft_toRightOf="@id/btn_3"
             app:layout_constraintRight_toRightOf="parent"
@@ -85,6 +103,8 @@
             app:layout_constraintWidth_percent="0.28" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_4"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -96,6 +116,8 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_5"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -107,6 +129,8 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_6"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -118,6 +142,8 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_7"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -129,6 +155,8 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_8"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -140,6 +168,8 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_9"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -151,6 +181,8 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_dot"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -162,6 +194,8 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_0"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -172,10 +206,12 @@
             app:layout_constraintTop_toTopOf="@id/btn_dot" />
 
         <Button
+            android:textColor="@color/colorWhite"
+
             android:id="@+id/btn_finish"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="完成"
+            android:text="@string/ji_input_view_finish"
             app:layout_constraintBottom_toBottomOf="@id/btn_dot"
             app:layout_constraintLeft_toRightOf="@+id/btn_9"
             app:layout_constraintRight_toRightOf="parent"
