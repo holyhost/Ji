@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <declare-styleable name="ZzViewPager">
+        <!--底部点的颜色-->
+        <attr name="zzdot_color_default" format="color"/>
+        <!--上面一个点的颜色-->
+        <attr name="zzdot_color_selected" format="color"/>
+        <!--是否有点击事件－viewpager 滑动懂对应点的页面-->
+        <attr name="zzdot_click_event" format="boolean"/>
+        <!--底部点的资源图-->
+        <attr name="zzdot_drawable_default" format="reference|integer"/>
+        <!--上面一个点的资源图-->
+        <attr name="zzdot_drawable_selected" format="reference|integer"/>
+    </declare-styleable>
 </resources>
