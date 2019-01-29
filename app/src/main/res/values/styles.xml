@@ -19,5 +19,6 @@
         <attr name="zzdot_drawable_default" format="reference|integer"/>
         <!--上面一个点的资源图-->
         <attr name="zzdot_drawable_selected" format="reference|integer"/>
+        <attr name="zzdot_visibility_dots" format="boolean"/>
     </declare-styleable>
 </resources>
