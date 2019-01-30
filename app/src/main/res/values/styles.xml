@@ -19,5 +19,32 @@
         <attr name="zzdot_drawable_default" format="reference|integer"/>
         <!--上面一个点的资源图-->
         <attr name="zzdot_drawable_selected" format="reference|integer"/>
+        <!--是否显示点-->
+        <attr name="zzdot_visibility" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="ZzTitleBar">
+        <!--左边返回箭头是否显示-->
+        <attr name="zz_title_bar_arrow_visible" format="boolean"/>
+        <!--左边箭头：颜色-->
+        <attr name="zz_title_bar_arrow_color" format="color"/>
+        <!--左边箭头：图标-->
+        <attr name="zz_title_bar_arrow_drawable" format="reference|integer"/>
+
+        <!--右边更多图标是否显示-->
+        <attr name="zz_title_bar_more_visible" format="boolean"/>
+        <!--右边更多：颜色-->
+        <attr name="zz_title_bar_more_color" format="color"/>
+        <!--右边更多：图标-->
+        <attr name="zz_title_bar_more_drawable" format="reference|integer"/>
+
+        <!--标题的位置：中间、左边-->
+        <attr name="zz_title_bar_title_center" format="boolean"/>
+        <!--标题：颜色-->
+        <attr name="zz_title_bar_title_color" format="color"/>
+        <!--标题：字体大小-->
+        <attr name="zz_title_bar_title_size" format="integer"/>
+        <!--标题：文字-->
+        <attr name="zz_title_bar_text" format="string"/>
     </declare-styleable>
 </resources>

@@ -17,20 +17,16 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.zxyoyo.apk.ji.DotViewPagerAdapter;
 import com.zxyoyo.apk.ji.R;
 
-import java.util.List;
 
 /**
  * 描述
+ *  带标点指示的viewpager
  *
- * @author 创建人 ：zhouxin
  * @version 1.0
  * @package 包名 ：com.zxyoyo.apk.ji.designview
  * @createTime 创建时间 ：19/1/29
- * @modifyBy 修改人 ：zhouxin
  * @modifyTime 修改时间 ：19/1/29
  * @modifyMemo 修改备注：
  */
@@ -41,6 +37,7 @@ public class ZzViewPager extends ConstraintLayout {
     private LinearLayout ll_dots;// bottom icon's parent to add icon
     private int defaultColor;
     private int dotDistance;// the distance between two dots;
+    private boolean isShowDots;
 
     public ZzViewPager(@NonNull Context context) {
         super(context);
@@ -72,6 +69,9 @@ public class ZzViewPager extends ConstraintLayout {
             if(selectedDrawable!=null){
                 iv_light_dot.setImageDrawable(selectedDrawable);
             }
+
+            // 是否显示 点,默认显示
+            isShowDots = typedArray.getBoolean(R.styleable.ZzViewPager_zzdot_visibility, true);
         }
 
         typedArray.recycle();
@@ -83,7 +83,7 @@ public class ZzViewPager extends ConstraintLayout {
      * @param size 点的个数，与pageview的页数有关
      */
     private void initDots(Context context,int size){
-        if(size<2) {
+        if(!isShowDots||size<2) {
             iv_light_dot.setVisibility(View.GONE);
             return;
         }
@@ -110,7 +110,9 @@ public class ZzViewPager extends ConstraintLayout {
         });
     }
 
-
+    /**
+     * 设置adapter
+     */
     public void setAdapter(PagerAdapter adapter){
         if(adapter==null) return;
         vp_container.setAdapter(adapter);
@@ -119,17 +121,25 @@ public class ZzViewPager extends ConstraintLayout {
 
     }
 
+    /**
+     * 设置adapter
+     */
+    public void setAdapter(PagerAdapter adapter,boolean isShowDots){
+        this.isShowDots = isShowDots;
+        this.setAdapter(adapter);
+    }
+
+    /**
+     * viewpager 滑动时，控制点的变化
+     */
     private void initScrollEvent() {
         vp_container.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float offset, int positionOffsetPixels) {
                 //position 当前位置，从0开始
                 //offset 当前页滑动到下一页百分比，从0到1；
-                float leftDistance = dotDistance *(position +offset);
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) iv_light_dot.getLayoutParams();
-                layoutParams.leftMargin = (int)leftDistance;
-                iv_light_dot.setLayoutParams(layoutParams);
-                Log.e("scroll","position="+position+"------offset="+offset+"------positionOffsetPixels="+positionOffsetPixels+"-----leftDistance="+leftDistance);
+                transition2Next(position,offset);
+                Log.e("scroll","position="+position+"------offset="+offset+"------positionOffsetPixels="+positionOffsetPixels);
             }
 
             @Override
@@ -148,5 +158,27 @@ public class ZzViewPager extends ConstraintLayout {
                 Log.e("scroll","scroll state = "+i);
             }
         });
+    }
+
+    /**
+     * 点 移动动画
+     * @param position 当前位置
+     * @param percent 当前手指移动屏幕的百分比
+     */
+    private void transition2Next(int position,float percent){
+        float leftDistance = dotDistance *(position +percent);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) iv_light_dot.getLayoutParams();
+        layoutParams.leftMargin = (int)leftDistance;
+        iv_light_dot.setLayoutParams(layoutParams);
+    }
+
+    /**
+     * todo
+     * 点 逐渐显示／隐藏动画
+     * @param position 当前位置
+     * @param percent 当前手指移动屏幕的百分比
+     */
+    private void alpha2Next(int position,float percent){
+
     }
 }
