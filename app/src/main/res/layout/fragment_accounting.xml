@@ -6,15 +6,15 @@
     android:orientation="vertical">
 
     <com.zxyoyo.apk.ji.designview.ZzTitleBar
-        android:background="@color/colorBlue"
         app:zz_title_bar_text="标题－Ji"
+        app:zz_title_bar_title_center="false"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 
     <com.zxyoyo.apk.ji.designview.ZzViewPager
-        app:zzdot_color_selected="@color/colorWhite"
+        app:zzdot_color_selected="@color/colorPrimary"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="300dp"/>

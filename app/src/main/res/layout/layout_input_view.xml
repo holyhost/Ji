@@ -52,6 +52,7 @@
         android:layout_marginTop="2dp">
 
         <Button
+            android:textSize="19sp"
             android:textColor="@color/colorWhite"
             android:id="@+id/btn_1"
             android:layout_width="0dp"
@@ -64,6 +65,7 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textSize="19sp"
             android:id="@+id/btn_2"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -77,6 +79,7 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textSize="19sp"
             android:id="@+id/btn_3"
             android:textColor="@color/colorWhite"
 
@@ -90,6 +93,7 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textSize="16sp"
             android:textColor="@color/colorWhite"
 
             android:id="@+id/btn_delete"
@@ -103,6 +107,7 @@
             app:layout_constraintWidth_percent="0.28" />
 
         <Button
+            android:textSize="19sp"
             android:textColor="@color/colorWhite"
 
             android:id="@+id/btn_4"
@@ -116,6 +121,7 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textSize="19sp"
             android:textColor="@color/colorWhite"
 
             android:id="@+id/btn_5"
@@ -129,6 +135,7 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textSize="19sp"
             android:textColor="@color/colorWhite"
 
             android:id="@+id/btn_6"
@@ -142,6 +149,7 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textSize="19sp"
             android:textColor="@color/colorWhite"
 
             android:id="@+id/btn_7"
@@ -168,6 +176,7 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textSize="19sp"
             android:textColor="@color/colorWhite"
 
             android:id="@+id/btn_9"
@@ -182,7 +191,7 @@
 
         <Button
             android:textColor="@color/colorWhite"
-
+            android:textSize="34sp"
             android:id="@+id/btn_dot"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -194,8 +203,8 @@
             app:layout_constraintWidth_percent="0.22" />
 
         <Button
+            android:textSize="19sp"
             android:textColor="@color/colorWhite"
-
             android:id="@+id/btn_0"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -206,6 +215,7 @@
             app:layout_constraintTop_toTopOf="@id/btn_dot" />
 
         <Button
+            android:textSize="16sp"
             android:textColor="@color/colorWhite"
 
             android:id="@+id/btn_finish"

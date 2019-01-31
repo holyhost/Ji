@@ -1,5 +1,6 @@
 package com.zxyoyo.apk.ji.designview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -28,6 +29,8 @@ public class ZzTitleBar extends ConstraintLayout {
     private ImageView iv_zz_back,iv_zz_more;
     private TextView tv_zz_title_center,tv_zz_title_left;//左边，中间的标题，两者只能存在一个
     private boolean titleCenter;
+    private OnMoreClickListener moreClickListener;
+    private OnBackClickListener backClickListener;
 
     public ZzTitleBar(Context context) {
         super(context);
@@ -36,6 +39,29 @@ public class ZzTitleBar extends ConstraintLayout {
     public ZzTitleBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context,attrs);
+        initEvent(context);
+    }
+
+    private void initEvent(final Context context) {
+        iv_zz_back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(null == backClickListener){
+                    ((Activity)context).onBackPressed();
+                }else {
+                    backClickListener.onBackClick();
+                }
+            }
+        });
+
+        iv_zz_more.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (null!=moreClickListener){
+                    moreClickListener.onMoreClick();
+                }
+            }
+        });
     }
 
 
@@ -53,7 +79,7 @@ public class ZzTitleBar extends ConstraintLayout {
 
             // 标题相关属性
             titleCenter = typedArray.getBoolean(R.styleable.ZzTitleBar_zz_title_bar_title_center, true);
-            int titleSize = typedArray.getInteger(R.styleable.ZzTitleBar_zz_title_bar_title_size, 16);
+            int titleSize = typedArray.getInteger(R.styleable.ZzTitleBar_zz_title_bar_title_size, 18);
             String titleText = typedArray.getString(R.styleable.ZzTitleBar_zz_title_bar_text);
             int textColor = typedArray.getColor(R.styleable.ZzTitleBar_zz_title_bar_title_color, getResources().getColor(R.color.colorWhite));
             initTitle(titleText,titleCenter,titleSize,textColor);
@@ -142,7 +168,7 @@ public class ZzTitleBar extends ConstraintLayout {
     private void initArrowLeft(boolean visible, int color,Drawable drawable){
         if(visible){
             iv_zz_back.setVisibility(VISIBLE);
-            if(color>0){
+            if(color!=-1){
                 iv_zz_back.setColorFilter(color);
             }
             if(null!= drawable){
@@ -171,5 +197,30 @@ public class ZzTitleBar extends ConstraintLayout {
         }else {
             iv_zz_more.setVisibility(GONE);
         }
+    }
+
+    /**
+     * 更多  按钮 点击接口
+     */
+    public interface OnMoreClickListener{
+        void onMoreClick();
+    }
+
+     /**
+     * 返回  按钮 点击接口
+     */
+    public interface OnBackClickListener{
+        void onBackClick();
+    }
+
+
+
+
+    public void setMoreClickListener(OnMoreClickListener moreClickListener) {
+        this.moreClickListener = moreClickListener;
+    }
+
+    public void setBackClickListener(OnBackClickListener backClickListener) {
+        this.backClickListener = backClickListener;
     }
 }
