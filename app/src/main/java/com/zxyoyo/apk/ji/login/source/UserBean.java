@@ -5,6 +5,8 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.util.UUID;
+
 /**
  * 用户信息实体类
  */
@@ -12,14 +14,15 @@ import org.greenrobot.greendao.annotation.Generated;
 public class UserBean {
     @Id(autoincrement = true)
     private long id;
-
+    private String userKey;
     private String loginName;
     private String password;
     private String lastLoginTime;
-    @Generated(hash = 1876133865)
-    public UserBean(long id, String loginName, String password,
+    @Generated(hash = 1107061644)
+    public UserBean(long id, String userKey, String loginName, String password,
             String lastLoginTime) {
         this.id = id;
+        this.userKey = userKey;
         this.loginName = loginName;
         this.password = password;
         this.lastLoginTime = lastLoginTime;
@@ -50,5 +53,11 @@ public class UserBean {
     }
     public void setLastLoginTime(String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+    public String getUserKey() {
+        return this.userKey;
+    }
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
     }
 }

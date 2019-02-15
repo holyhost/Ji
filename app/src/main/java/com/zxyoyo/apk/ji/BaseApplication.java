@@ -3,6 +3,8 @@ package com.zxyoyo.apk.ji;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.zxyoyo.apk.ji.login.source.UserBean;
+
 import database.DaoMaster;
 import database.DaoSession;
 
@@ -37,6 +39,10 @@ public class BaseApplication extends Application {
         DaoMaster daoMaster = new DaoMaster(writableDatabase);
         // 获取 dao 数据库对象管理者
         mDaoSession = daoMaster.newSession();
+        if(mDaoSession.getUserBeanDao().loadAll().size()<1){
+            //第一次使用，创建一个默认用户
+            mDaoSession.getUserBeanDao().insert(new UserBean());
+        }
     }
 
     public static DaoSession getDaoSession(){

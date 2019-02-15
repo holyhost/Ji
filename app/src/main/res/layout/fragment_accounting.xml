@@ -17,7 +17,7 @@
         app:zzdot_color_selected="@color/colorPrimary"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
+        android:layout_height="200dp"/>
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"

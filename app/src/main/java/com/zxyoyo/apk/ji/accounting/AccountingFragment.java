@@ -60,14 +60,6 @@ public class AccountingFragment extends Fragment {
         views.add(btn2);
         views.add(btn3);
         views.add(btn4);
-        views.add(btn1);
-        views.add(btn2);
-        views.add(btn3);
-        views.add(btn4);
-        views.add(btn1);
-        views.add(btn2);
-        views.add(btn3);
-        views.add(btn4);
         view_pager.setAdapter(new DotViewPagerAdapter(getContext(),views));
     }
 }

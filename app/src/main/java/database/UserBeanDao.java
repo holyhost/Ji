@@ -25,9 +25,10 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, long.class, "id", true, "_id");
-        public final static Property LoginName = new Property(1, String.class, "loginName", false, "LOGIN_NAME");
-        public final static Property Password = new Property(2, String.class, "password", false, "PASSWORD");
-        public final static Property LastLoginTime = new Property(3, String.class, "lastLoginTime", false, "LAST_LOGIN_TIME");
+        public final static Property UserKey = new Property(1, String.class, "userKey", false, "USER_KEY");
+        public final static Property LoginName = new Property(2, String.class, "loginName", false, "LOGIN_NAME");
+        public final static Property Password = new Property(3, String.class, "password", false, "PASSWORD");
+        public final static Property LastLoginTime = new Property(4, String.class, "lastLoginTime", false, "LAST_LOGIN_TIME");
     }
 
 
@@ -44,9 +45,10 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
-                "\"LOGIN_NAME\" TEXT," + // 1: loginName
-                "\"PASSWORD\" TEXT," + // 2: password
-                "\"LAST_LOGIN_TIME\" TEXT);"); // 3: lastLoginTime
+                "\"USER_KEY\" TEXT," + // 1: userKey
+                "\"LOGIN_NAME\" TEXT," + // 2: loginName
+                "\"PASSWORD\" TEXT," + // 3: password
+                "\"LAST_LOGIN_TIME\" TEXT);"); // 4: lastLoginTime
     }
 
     /** Drops the underlying database table. */
@@ -60,19 +62,24 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         stmt.clearBindings();
         stmt.bindLong(1, entity.getId());
  
+        String userKey = entity.getUserKey();
+        if (userKey != null) {
+            stmt.bindString(2, userKey);
+        }
+ 
         String loginName = entity.getLoginName();
         if (loginName != null) {
-            stmt.bindString(2, loginName);
+            stmt.bindString(3, loginName);
         }
  
         String password = entity.getPassword();
         if (password != null) {
-            stmt.bindString(3, password);
+            stmt.bindString(4, password);
         }
  
         String lastLoginTime = entity.getLastLoginTime();
         if (lastLoginTime != null) {
-            stmt.bindString(4, lastLoginTime);
+            stmt.bindString(5, lastLoginTime);
         }
     }
 
@@ -81,19 +88,24 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         stmt.clearBindings();
         stmt.bindLong(1, entity.getId());
  
+        String userKey = entity.getUserKey();
+        if (userKey != null) {
+            stmt.bindString(2, userKey);
+        }
+ 
         String loginName = entity.getLoginName();
         if (loginName != null) {
-            stmt.bindString(2, loginName);
+            stmt.bindString(3, loginName);
         }
  
         String password = entity.getPassword();
         if (password != null) {
-            stmt.bindString(3, password);
+            stmt.bindString(4, password);
         }
  
         String lastLoginTime = entity.getLastLoginTime();
         if (lastLoginTime != null) {
-            stmt.bindString(4, lastLoginTime);
+            stmt.bindString(5, lastLoginTime);
         }
     }
 
@@ -106,9 +118,10 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
     public UserBean readEntity(Cursor cursor, int offset) {
         UserBean entity = new UserBean( //
             cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // loginName
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // password
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // lastLoginTime
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userKey
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // loginName
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // password
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // lastLoginTime
         );
         return entity;
     }
@@ -116,9 +129,10 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
     @Override
     public void readEntity(Cursor cursor, UserBean entity, int offset) {
         entity.setId(cursor.getLong(offset + 0));
-        entity.setLoginName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setPassword(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setLastLoginTime(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setUserKey(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setLoginName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setPassword(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setLastLoginTime(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

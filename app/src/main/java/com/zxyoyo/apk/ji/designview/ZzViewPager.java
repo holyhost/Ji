@@ -139,7 +139,7 @@ public class ZzViewPager extends ConstraintLayout {
                 //position 当前位置，从0开始
                 //offset 当前页滑动到下一页百分比，从0到1；
                 transition2Next(position,offset);
-                Log.e("scroll","position="+position+"------offset="+offset+"------positionOffsetPixels="+positionOffsetPixels);
+//                Log.e("scroll","position="+position+"------offset="+offset+"------positionOffsetPixels="+positionOffsetPixels);
             }
 
             @Override
