@@ -23,4 +23,11 @@
     <string name="goods_type_eating">美食</string>
     <string name="goods_type_lottery">彩票</string>
     <string name="goods_type_financing">理财</string>
+    <string name="goods_type_add">增加</string>
+    <!--addtype dialog fragment-->
+    <string name="title_input_goods_name">填写商品名称</string>
+    <string name="goods_input_name_hint">不超过四个字</string>
+    <string name="ji_btn_cancel">取消</string>
+    <string name="ji_btn_complete">完成</string>
+
 </resources>

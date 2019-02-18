@@ -1,5 +1,7 @@
 package com.zxyoyo.apk.ji.accounting.source;
 
+import android.support.annotation.DrawableRes;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -22,12 +24,21 @@ public class GoodsTypeBean {
     private String name;
     private int type=0;// 0->default,1->user add
     private long createTime = System.currentTimeMillis();
-    @Generated(hash = 19990546)
-    public GoodsTypeBean(long id, String name, int type, long createTime) {
+    @DrawableRes
+    private int icon;// 图标icon
+    @Generated(hash = 808794187)
+    public GoodsTypeBean(long id, String name, int type, long createTime,
+            int icon) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.createTime = createTime;
+        this.icon = icon;
+    }
+
+    public GoodsTypeBean(String name,int icon){
+        this.name = name;
+        this.icon = icon;
     }
     @Generated(hash = 1042864668)
     public GoodsTypeBean() {
@@ -55,6 +66,12 @@ public class GoodsTypeBean {
     }
     public void setCreateTime(long createTime) {
         this.createTime = createTime;
+    }
+    public int getIcon() {
+        return this.icon;
+    }
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 
 }
