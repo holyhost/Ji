@@ -5,16 +5,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <com.zxyoyo.apk.ji.designview.ZzTitleBar
+        app:zz_title_bar_text="标题－Ji"
+        app:zz_title_bar_title_center="false"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
+    <com.zxyoyo.apk.ji.designview.ZzViewPager
+        app:zzdot_color_selected="@color/colorPrimary"
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <com.zxyoyo.apk.ji.designview.ZzViewPager
-        app:zzdot_color_selected="@color/colorWhite"
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </LinearLayout>
