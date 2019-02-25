@@ -37,6 +37,7 @@ public class GoodsTypeBean {
     }
 
     public GoodsTypeBean(String name,int icon){
+        this.id = System.currentTimeMillis();
         this.name = name;
         this.icon = icon;
     }

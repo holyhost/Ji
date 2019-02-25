@@ -54,9 +54,12 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageLayoutAdapter.ItemViewerHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ImageLayoutAdapter.ItemViewerHolder viewHolder, int i) {
         GoodsTypeBean item = data.get(i);
-        viewHolder.ivIcon.setImageDrawable(context.getResources().getDrawable(item.getIcon()));
+        int icon = item.getIcon();
+        if(icon>0){
+            viewHolder.ivIcon.setImageDrawable(context.getResources().getDrawable(icon));
+        }
         final String iconName = item.getName();
         viewHolder.tvName.setText(iconName);
         viewHolder.llRoot.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +67,12 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
             public void onClick(View view) {
                 if(TextUtils.equals(iconName,context.getResources().getString(R.string.goods_type_add))){
                     AddTypeDialogFragment dialogFragment = AddTypeDialogFragment.getInstance();
-
                     dialogFragment.show(((AppCompatActivity)context).getSupportFragmentManager(),AddTypeDialogFragment.class.getSimpleName());
 
+                }else {
+                    viewHolder.llRoot.setFocusable(true);
                 }
+
             }
         });
     }

@@ -23,17 +23,19 @@ public class AccountBean {
     private String account;//账户
     private double number;//金额
     private long time;// 纪录时间
+    private int icon;// 图标
     private int type;// 0 为支出，1为收入
     private String detailType;// 具体种类
     private String description;// 详情描述
     private String photo;//照片
-    @Generated(hash = 230861745)
-    public AccountBean(long id, String account, double number, long time, int type,
-            String detailType, String description, String photo) {
+    @Generated(hash = 797197479)
+    public AccountBean(long id, String account, double number, long time, int icon,
+            int type, String detailType, String description, String photo) {
         this.id = id;
         this.account = account;
         this.number = number;
         this.time = time;
+        this.icon = icon;
         this.type = type;
         this.detailType = detailType;
         this.description = description;
@@ -89,5 +91,11 @@ public class AccountBean {
     }
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+    public int getIcon() {
+        return this.icon;
+    }
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 }

@@ -17,6 +17,7 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zxyoyo.apk.ji.BaseApplication;
 import com.zxyoyo.apk.ji.DotViewPagerAdapter;
 import com.zxyoyo.apk.ji.R;
 import com.zxyoyo.apk.ji.accounting.source.GoodsTypeBean;
@@ -53,39 +54,7 @@ public class AccountingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         List<View> views = new ArrayList<>();
-        List<GoodsTypeBean> datas = new ArrayList<>();
-        datas.add(new GoodsTypeBean("购物",R.drawable.goods_type_shop));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("购物",R.drawable.goods_type_shop));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("购物",R.drawable.goods_type_shop));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("购物",R.drawable.goods_type_shop));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("购物",R.drawable.goods_type_shop));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
-        datas.add(new GoodsTypeBean("汽车",R.drawable.goods_type_car));
+        List<GoodsTypeBean> datas = BaseApplication.getDaoSession().getGoodsTypeBeanDao().loadAll();
         for(int i=0;i<datas.size()/10+1;i++){
             GridLayoutManager manager = new GridLayoutManager(getContext(),5);
             manager.setOrientation(LinearLayoutManager.VERTICAL);

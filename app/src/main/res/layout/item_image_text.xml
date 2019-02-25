@@ -10,6 +10,8 @@
     >
 
     <ImageView
+        android:tint="@android:color/holo_red_dark"
+        android:focusable="true"
         android:src="@drawable/goods_type_shop"
         android:id="@+id/iv_icon"
         android:layout_width="wrap_content"

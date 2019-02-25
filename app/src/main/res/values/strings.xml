@@ -17,7 +17,7 @@
     <string name="goods_type_sport">运动</string>
     <string name="goods_type_book">书籍</string>
     <string name="goods_type_maintain">维修</string>
-    <string name="goods_type_donate"></string>
+    <string name="goods_type_donate">捐赠</string>
     <string name="goods_type_gift">礼物</string>
     <string name="goods_type_entertainment">娱乐</string>
     <string name="goods_type_eating">美食</string>

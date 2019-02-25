@@ -2,11 +2,17 @@ package com.zxyoyo.apk.ji;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.SystemClock;
+import android.util.Log;
 
+import com.zxyoyo.apk.ji.accounting.source.AccountBean;
+import com.zxyoyo.apk.ji.accounting.source.GoodsTypeBean;
 import com.zxyoyo.apk.ji.login.source.UserBean;
 
+import database.AccountBeanDao;
 import database.DaoMaster;
 import database.DaoSession;
+import database.GoodsTypeBeanDao;
 
 /**
  * 描述
@@ -42,6 +48,66 @@ public class BaseApplication extends Application {
         if(mDaoSession.getUserBeanDao().loadAll().size()<1){
             //第一次使用，创建一个默认用户
             mDaoSession.getUserBeanDao().insert(new UserBean());
+        }
+        if(mDaoSession.getGoodsTypeBeanDao().loadAll().size()<1){
+            //没有数据，填充数据
+            initData();
+        }
+    }
+
+    /**
+     * 初始化数据字典
+     * @return
+     */
+    private void initData(){
+        String[] names = new String[]{
+                getResources().getString(R.string.goods_type_shop),
+                getResources().getString(R.string.goods_type_common),
+                getResources().getString(R.string.goods_type_car),
+                getResources().getString(R.string.goods_type_correspond),
+                getResources().getString(R.string.goods_type_housing),
+                getResources().getString(R.string.goods_type_traffic),
+                getResources().getString(R.string.goods_type_travel),
+                getResources().getString(R.string.goods_type_donate),
+                getResources().getString(R.string.goods_type_sport),
+                getResources().getString(R.string.goods_type_study),
+                getResources().getString(R.string.goods_type_maintain),
+                getResources().getString(R.string.goods_type_gift),
+                getResources().getString(R.string.goods_type_financing),
+                getResources().getString(R.string.goods_type_lottery),
+                getResources().getString(R.string.goods_type_eating),
+                getResources().getString(R.string.goods_type_pet),
+                getResources().getString(R.string.goods_type_entertainment),
+                getResources().getString(R.string.goods_type_book)
+        };
+        int[] icons = new int[]{
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_car,
+                R.drawable.goods_type_pet,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+                R.drawable.goods_type_shop,
+        };
+        GoodsTypeBeanDao goodsTypeBeanDao = mDaoSession.getGoodsTypeBeanDao();
+        for(int i=0;i<names.length;i++){
+            try {
+                goodsTypeBeanDao.insert(new GoodsTypeBean(i,names[i],0, System.currentTimeMillis(),icons[i]));
+
+            }catch (Exception e){
+                Log.e("error",e.getMessage());
+            }
         }
     }
 

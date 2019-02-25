@@ -1,11 +1,14 @@
 package com.zxyoyo.apk.ji.designview;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +16,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.zxyoyo.apk.ji.BaseApplication;
 import com.zxyoyo.apk.ji.R;
+import com.zxyoyo.apk.ji.accounting.source.GoodsTypeBean;
 
 /**
  * 描述
@@ -54,10 +59,62 @@ public class AddTypeDialogFragment extends DialogFragment {
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo add a type to database and refresh view
-
+                BaseApplication.getDaoSession().getGoodsTypeBeanDao().insert(new GoodsTypeBean(etName.getText().toString(),0));
+                dismiss();
             }
         });
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e("life","onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e("life","onStop");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("life","onResume");
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("life","onDestroy");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("life","onStart");
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        Log.e("life","onDismiss");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e("life","onDetach");
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.e("life","onAttach");
+
     }
 }
