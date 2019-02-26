@@ -46,6 +46,11 @@ public class AddTypeDialogFragment extends DialogFragment {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         View view = inflater.inflate(R.layout.dialog_fragment_add_type,container);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
         btnCancel = view.findViewById(R.id.btn_cancel);
         btnComplete = view.findViewById(R.id.btn_complete);
         etName = view.findViewById(R.id.et_input_goods_name);
@@ -63,58 +68,57 @@ public class AddTypeDialogFragment extends DialogFragment {
                 dismiss();
             }
         });
-        return view;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("life","onPause");
+        Log.e("life","AddTypeDialogFragment-onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.e("life","onStop");
+        Log.e("life","AddTypeDialogFragment-onStop");
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("life","onResume");
+        Log.e("life","AddTypeDialogFragment-onResume");
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("life","onDestroy");
+        Log.e("life","AddTypeDialogFragment-onDestroy");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("life","onStart");
+        Log.e("life","AddTypeDialogFragment-onStart");
     }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        Log.e("life","onDismiss");
+        Log.e("life","AddTypeDialogFragment-onDismiss");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e("life","onDetach");
+        Log.e("life","AddTypeDialogFragment-onDetach");
 
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("life","onAttach");
+        Log.e("life","AddTypeDialogFragment-onAttach");
 
     }
 }

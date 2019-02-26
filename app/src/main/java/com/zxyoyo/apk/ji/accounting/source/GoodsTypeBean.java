@@ -36,11 +36,20 @@ public class GoodsTypeBean {
         this.icon = icon;
     }
 
+
     public GoodsTypeBean(String name,int icon){
         this.id = System.currentTimeMillis();
         this.name = name;
         this.icon = icon;
+        this.type = 1;
     }
+    public GoodsTypeBean(String name,int icon,int type){
+        this.id = System.currentTimeMillis();
+        this.name = name;
+        this.icon = icon;
+        this.type = type;
+    }
+
     @Generated(hash = 1042864668)
     public GoodsTypeBean() {
     }

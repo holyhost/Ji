@@ -2,20 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="2dp"
     android:layout_marginTop="10dp"
     android:id="@+id/ll_root"
-    >
+    android:background="@drawable/select_icon_focus">
 
-    <ImageView
-        android:tint="@android:color/holo_red_dark"
-        android:focusable="true"
-        android:src="@drawable/goods_type_shop"
-        android:id="@+id/iv_icon"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:focusable="true"
+            android:src="@drawable/goods_type_shop"
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintTop_toTopOf="@+id/iv_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_icon"
+            app:layout_constraintRight_toRightOf="@id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </android.support.constraint.ConstraintLayout>
+
     <TextView
         android:layout_marginBottom="5dp"
         android:id="@+id/tv_name"

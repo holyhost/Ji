@@ -4,6 +4,11 @@
     <string name="ji_input_view_finish">完成</string>
     <string name="ji_input_view_hint">请输入</string>
 
+    <string name="alert_alarm">提示</string>
+    <string name="alert_ok">确定</string>
+    <string name="alert_cancel">取消</string>
+    <string name="alert_message_delete">是否删除？</string>
+
     <!--默认提供的种类-->
     <string name="goods_type_shop">购物</string>
     <string name="goods_type_correspond">通讯</string>
