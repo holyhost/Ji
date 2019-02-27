@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zxyoyo.apk.ji.BaseApplication;
 import com.zxyoyo.apk.ji.R;
@@ -24,6 +25,8 @@ import com.zxyoyo.apk.ji.designview.AddTypeDialogFragment;
 
 import java.util.List;
 import java.util.Map;
+
+import database.GoodsTypeBeanDao;
 
 /**
  * 描述
@@ -46,9 +49,15 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
     private AlertDialog addDialog;
     AlertDialog deleteDialog;
     private int selectedPosition = -1;
+    private int currentIndex;
 
 
-    public ImageLayoutAdapter(List<GoodsTypeBean> data, Context context) {
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public ImageLayoutAdapter(List<GoodsTypeBean> data, Context context, int currentIndex) {
+        this.currentIndex = currentIndex;
         this.data = data;
         this.context = context;
         if(data!=null&&data.size()<MAX_COUNT){
@@ -86,8 +95,11 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
         if(icon>0){
             viewHolder.ivIcon.setImageDrawable(context.getResources().getDrawable(icon));
         }
-        if(selectedPosition>-1&&selectedPosition==i){
+        if(selectedPosition==i){
             viewHolder.ivIcon.setColorFilter(Color.RED);
+        }else {
+            viewHolder.ivIcon.setColorFilter(Color.GRAY);
+
         }
         final String iconName = item.getName();
         final int type = item.getType();
@@ -96,13 +108,15 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
             @Override
             public void onClick(View view) {
                 if(TextUtils.equals(iconName,context.getResources().getString(R.string.goods_type_add))){
-//                    AddTypeDialogFragment dialogFragment = AddTypeDialogFragment.getInstance();
-//                    dialogFragment.show(((AppCompatActivity)context).getSupportFragmentManager(),AddTypeDialogFragment.class.getSimpleName());
+                    // 点击的是添加按钮
                     showInputDialog(context);
                 }else {
+                    // 点击的时候类别，记录选中位置，刷新界面，使其变为红色，同时，如果其它界面有选中，应该刷新掉
+                    if(null!=listener){
+                        listener.onClick(iconName);
+                    }
                     selectedPosition = i;
                     notifyDataSetChanged();
-
                 }
 
             }
@@ -111,7 +125,8 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
             @Override
             public boolean onLongClick(View view) {
                 //长按，删除已添加的种类，默认的不允许删除
-                if(type-0>0){
+                // 如果已选中，不触发长按事件
+                if(type-0>0&&selectedPosition!=i){
 
                     deleteDialog = new AlertDialog.Builder(context)
                             .setTitle(R.string.alert_alarm)
@@ -120,6 +135,7 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int anInt) {
                                     BaseApplication.getDaoSession().getGoodsTypeBeanDao().delete(data.get(i));
+                                    data.remove(i);
                                     notifyDataSetChanged();
                                     if(deleteDialog !=null) deleteDialog.dismiss();
                                 }
@@ -192,15 +208,43 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GoodsTypeBean bean = new GoodsTypeBean(etName.getText().toString(), 0,1);
-                BaseApplication.getDaoSession().getGoodsTypeBeanDao().insert(bean);
-                addData(bean);
+                GoodsTypeBean bean = new GoodsTypeBean(etName.getText().toString(), R.drawable.goods_type_default,1);
+                GoodsTypeBeanDao dao = BaseApplication.getDaoSession().getGoodsTypeBeanDao();
+                long count = dao.queryBuilder()
+                        .where(GoodsTypeBeanDao.Properties.Name.eq(etName.getText().toString())).count();
+                if(count<1){
+                    // 未存在，添加进去
+                    dao.insert(bean);
+                    addData(bean);
+
+                }else {
+                    Toast.makeText(context,"已存在此类别！",Toast.LENGTH_SHORT).show();
+                }
                 if(addDialog!=null)
                     addDialog.dismiss();
             }
         });
     }
 
+    /**
+     * 刷新界面，用于清楚掉选中的未红色
+     */
+    public  void refreshLayout(){
+        if(selectedPosition>-1){
+            selectedPosition = -1;
+            notifyDataSetChanged();
+        }
+    }
+
+    private ImageLayoutClickListener listener;
+
+    public void setListener(ImageLayoutClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface ImageLayoutClickListener{
+        void onClick(String typeName);
+    }
 
 
 }

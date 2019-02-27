@@ -37,6 +37,9 @@ public class AccountingFragment extends Fragment {
     private FrameLayout fl_container;
 
     private ZzViewPager view_pager;
+    private String selectedName;//选中的icon名称
+    private List<ImageLayoutAdapter> listAdapters;
+    private int currentPage = 0;//当前选中图标的页数，0开始
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,7 @@ public class AccountingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         List<View> views = new ArrayList<>();
         List<GoodsTypeBean> datas = BaseApplication.getDaoSession().getGoodsTypeBeanDao().loadAll();
+        listAdapters = new ArrayList<>();
         for(int i=0;i<datas.size()/10+1;i++){
             GridLayoutManager manager = new GridLayoutManager(getContext(),5);
             manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -68,8 +72,20 @@ public class AccountingFragment extends Fragment {
             for(int j=0;j<((i<(datas.size()/10))?10:(datas.size()%10));j++){
                 page.add(datas.get(j+10*i));
             }
-            ImageLayoutAdapter adapter = new ImageLayoutAdapter(page,getContext());
+            final ImageLayoutAdapter adapter = new ImageLayoutAdapter(page,getContext(),i);
             recyclerView.setAdapter(adapter);
+            listAdapters.add(adapter);
+            adapter.setListener(new ImageLayoutAdapter.ImageLayoutClickListener() {
+                @Override
+                public void onClick(String typeName) {
+                    selectedName = typeName;
+                    currentPage = adapter.getCurrentIndex();
+                    for(int k=0;k<listAdapters.size();k++){
+                        if(currentPage!=k)
+                            listAdapters.get(k).refreshLayout();
+                    }
+                }
+            });
             views.add(recyclerView);
         }
 
