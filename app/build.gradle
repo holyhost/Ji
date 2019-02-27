@@ -44,8 +44,8 @@ dependencies {
     // 用于画饼状图，柱状图等
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     //用于线程控制等其他功能
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+//    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     // 设计类库
     implementation 'com.android.support:design:28.0.0'
     //数据库-保存数据到本地

@@ -18,9 +18,10 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
-    <FrameLayout
-        android:id="@+id/fl_container"
+    <com.zxyoyo.apk.ji.designview.JiInputView
+        android:id="@+id/input_view"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="0dp"/>
 
 </LinearLayout>

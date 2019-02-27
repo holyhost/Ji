@@ -2,6 +2,7 @@ package com.zxyoyo.apk.ji.accounting;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,10 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.zxyoyo.apk.ji.BaseApplication;
 import com.zxyoyo.apk.ji.DotViewPagerAdapter;
 import com.zxyoyo.apk.ji.R;
@@ -31,11 +36,13 @@ import com.zxyoyo.apk.ji.designview.ZzViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class AccountingFragment extends Fragment {
 
     private View view;
     private FrameLayout fl_container;
-
+    private JiInputView jiInputView;
     private ZzViewPager view_pager;
     private String selectedName;//选中的icon名称
     private List<ImageLayoutAdapter> listAdapters;
@@ -49,10 +56,18 @@ public class AccountingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_accounting, container, false);
-        container = view.findViewById(R.id.fl_container);
+        jiInputView = view.findViewById(R.id.input_view);
         view_pager = view.findViewById(R.id.view_pager);
-
-        new JiInputView(getContext(),container);
+        jiInputView.setListener(new JiInputView.JiInputClickListener() {
+            @Override
+            public void onClick() {
+                PictureSelector.create(AccountingFragment.this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .maxSelectNum(1)
+                        .isCamera(true)
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
+            }
+        });
         return view;
     }
 
@@ -140,4 +155,20 @@ public class AccountingFragment extends Fragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片、视频、音频选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    if (selectList != null && selectList.size() > 0) {
+                        jiInputView.setPhoto(selectList.get(0).getPath());
+
+                    }
+                    break;
+            }
+        }
+    }
 }

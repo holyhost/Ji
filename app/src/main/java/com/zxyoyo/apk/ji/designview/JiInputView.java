@@ -2,7 +2,9 @@ package com.zxyoyo.apk.ji.designview;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.zxyoyo.apk.ji.R;
 
@@ -27,7 +30,7 @@ import java.util.Stack;
  * @modifyTime 修改时间 ：19/1/24
  * @modifyMemo 修改备注：
  */
-public class JiInputView implements View.OnClickListener{
+public class JiInputView extends ConstraintLayout implements View.OnClickListener{
     private Context context;
     private double number;//输入数值
     private List<String> filePathes;// 文件路径集合
@@ -39,26 +42,38 @@ public class JiInputView implements View.OnClickListener{
     private EditText et_number;// 输入的数值
     private final int MAX_INPUT_COUNT = 14;
 
+    public JiInputView(Context context) {
+        super(context);
+    }
 
-    /**
-     * 构造器
-     * @param context
-     */
-    public JiInputView(Context context, ViewGroup viewGroup){
-        this.context = context;
-        rootView = LayoutInflater.from(context).inflate(R.layout.layout_input_view, viewGroup, false);
-        viewGroup.addView(rootView);
+    public JiInputView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+                this.context = context;
+        rootView = LayoutInflater.from(context).inflate(R.layout.layout_input_view, this, true);
         onInitView();
         onInitData();
     }
+
+
+    /**
+     * 构造器
+     * @param
+     */
+//    public JiInputView(Context context, ViewGroup viewGroup){
+//        this.context = context;
+//        rootView = LayoutInflater.from(context).inflate(R.layout.layout_input_view, viewGroup, false);
+//        viewGroup.addView(rootView);
+//        onInitView();
+//        onInitData();
+//    }
 
     //获取输入框中的值
     public double getValue(){
         return number;
     }
-    public JiInputView(Context context) {
-        this.context = context;
-    }
+//    public JiInputView(Context context) {
+//        this.context = context;
+//    }
 
     /**
      * 界面初始化
@@ -161,7 +176,7 @@ public class JiInputView implements View.OnClickListener{
                 et_number.setText(getResult());
                 break;
             case R.id.iv_photo:
-
+                if(listener!=null) listener.onClick();
                 break;
             case R.id.btn_finish:
                 onDestroy();
@@ -227,4 +242,17 @@ public class JiInputView implements View.OnClickListener{
         return result;
     }
 
+    public void setPhoto(String picPath){
+        Glide.with(this)
+                .load(picPath)
+                .into(iv_photo);
+    }
+    private JiInputClickListener listener;
+    public interface JiInputClickListener{
+        void onClick();
+    }
+
+    public void setListener(JiInputClickListener listener) {
+        this.listener = listener;
+    }
 }
