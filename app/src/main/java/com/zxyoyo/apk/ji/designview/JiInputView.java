@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.luck.picture.lib.PictureSelector;
 import com.zxyoyo.apk.ji.R;
 
 import java.util.ArrayList;
@@ -30,12 +31,13 @@ public class JiInputView implements View.OnClickListener{
     private Context context;
     private double number;//输入数值
     private List<String> filePathes;// 文件路径集合
-    private List<String> characters;// 文件路径集合
+    private List<String> characters;// 输入框字符集合
     private View rootView;// this JiInputView layout
 
     private Button btn_0,btn_1,btn_2,btn_3,btn_4,btn_5,btn_6,btn_7,btn_8,btn_9,btn_delete,btn_finish,btn_dot;
     private ImageView iv_photo,iv_clear;//图片选择
     private EditText et_number;// 输入的数值
+    private final int MAX_INPUT_COUNT = 14;
 
 
     /**
@@ -92,6 +94,7 @@ public class JiInputView implements View.OnClickListener{
         btn_delete.setOnClickListener(this);
         btn_finish.setOnClickListener(this);
         iv_clear.setOnClickListener(this);
+        iv_photo.setOnClickListener(this);
 
     }
 
@@ -158,6 +161,7 @@ public class JiInputView implements View.OnClickListener{
                 et_number.setText(getResult());
                 break;
             case R.id.iv_photo:
+
                 break;
             case R.id.btn_finish:
                 onDestroy();
@@ -189,7 +193,8 @@ public class JiInputView implements View.OnClickListener{
         }
         //第一个字符不能是小数点
         if(characters.size()<1&&TextUtils.equals(".",input)) return true;
-
+        // 输入内容达到最大值
+        if(characters.size()+1>MAX_INPUT_COUNT&&!characters.contains(".")) return true;
         //已经输入了一个点后不允许再次输入一个点
         if(characters.contains(".")&& TextUtils.equals(".",input)) return true;
         // 小数点后最多两位数

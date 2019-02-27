@@ -19,6 +19,7 @@
             android:layout_height="56dp" />
 
         <EditText
+            android:textSize="20sp"
             android:layout_weight="1"
             android:maxLength="14"
             android:maxLines="1"
