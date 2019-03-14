@@ -52,4 +52,7 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     // 图片选择器
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    implementation ('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6') {
+        exclude group: 'com.android.support'
+    }
 }

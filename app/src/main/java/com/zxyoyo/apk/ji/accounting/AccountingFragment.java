@@ -1,25 +1,26 @@
 package com.zxyoyo.apk.ji.accounting;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -31,22 +32,33 @@ import com.zxyoyo.apk.ji.R;
 import com.zxyoyo.apk.ji.accounting.source.GoodsTypeBean;
 import com.zxyoyo.apk.ji.accounting.source.ImageLayoutAdapter;
 import com.zxyoyo.apk.ji.designview.JiInputView;
+import com.zxyoyo.apk.ji.designview.ZzInputDialog;
 import com.zxyoyo.apk.ji.designview.ZzViewPager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import cn.qqtheme.framework.picker.DatePicker;
+import database.GoodsTypeBeanDao;
+
 
 import static android.app.Activity.RESULT_OK;
 
 public class AccountingFragment extends Fragment {
 
     private View view;
+    private TextView tvDate;//日期
+    private TextView tvDescribe;//备注
     private FrameLayout fl_container;
     private JiInputView jiInputView;
     private ZzViewPager view_pager;
     private String selectedName;//选中的icon名称
     private List<ImageLayoutAdapter> listAdapters;
     private int currentPage = 0;//当前选中图标的页数，0开始
+    private int year;
+    private int month;
+    private int day;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +70,72 @@ public class AccountingFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_accounting, container, false);
         jiInputView = view.findViewById(R.id.input_view);
         view_pager = view.findViewById(R.id.view_pager);
+        tvDate = view.findViewById(R.id.tv_date);
+        tvDescribe = view.findViewById(R.id.tv_describe);
+        initView();
+        return view;
+    }
+
+    private void initView() {
+        Calendar calendar = Calendar.getInstance();
+        year = Integer.parseInt(String.valueOf(calendar.get(Calendar.YEAR)));
+        month = Integer.parseInt(String.valueOf(calendar.get(Calendar.MONTH)))+1;
+        day = Integer.parseInt(String.valueOf(calendar.get(Calendar.DATE)));
+        tvDate.setText((month<10?("0"+month):month)+"-"+day);
+        tvDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DatePicker picker = new DatePicker(getActivity());
+                picker.setCanceledOnTouchOutside(true);
+                picker.setUseWeight(true);
+//                picker.setTopPadding(ConvertUtils.toPx(this, 10));
+                picker.setRangeEnd(year+3, 1, 11);
+                picker.setRangeStart(year-3, 8, 29);
+                picker.setSelectedItem(year, month, day);
+                picker.setResetWhileWheel(false);
+                picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+                    @Override
+                    public void onDatePicked(String y, String m, String d) {
+                        if(TextUtils.equals(year+"",y)){
+                            tvDate.setText(m+"-"+d);
+                        }else {
+                            tvDate.setText(y+"-"+m+"-"+d);
+
+                        }
+                    }
+                });
+                picker.setOnWheelListener(new DatePicker.OnWheelListener() {
+                    @Override
+                    public void onYearWheeled(int index, String year) {
+                        picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
+                    }
+
+                    @Override
+                    public void onMonthWheeled(int index, String month) {
+                        picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
+                    }
+
+                    @Override
+                    public void onDayWheeled(int index, String day) {
+                        picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
+                    }
+                });
+                picker.show();
+
+            }
+        });
+        tvDescribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ZzInputDialog dialog = new ZzInputDialog(getContext(), "备注");
+                dialog.setOnInputResultListener(new ZzInputDialog.OnInputResultListener() {
+                    @Override
+                    public void onGetInputResult(String inputText) {
+                        Toast.makeText(getContext(),inputText,Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
         jiInputView.setListener(new JiInputView.JiInputClickListener() {
             @Override
             public void onClick() {
@@ -68,7 +146,6 @@ public class AccountingFragment extends Fragment {
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             }
         });
-        return view;
     }
 
     @Override

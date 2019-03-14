@@ -1,27 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    >
 
+    <android.support.constraint.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/gl_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.5" />
     <com.zxyoyo.apk.ji.designview.ZzTitleBar
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:zz_title_bar_text="标题－Ji"
         app:zz_title_bar_title_center="false"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@drawable/bg_shape_round_corner"
+        android:textColor="@color/colorWhite"
+        android:text="@string/ji_common_date"
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintLeft_toRightOf="@+id/tv_date"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@drawable/bg_shape_round_corner"
+        android:textColor="@color/colorWhite"
+        android:text="@string/ji_common_describe"
+        android:id="@+id/tv_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <com.zxyoyo.apk.ji.designview.ZzViewPager
+        app:layout_constraintTop_toBottomOf="@+id/tv_date"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
         app:zzdot_color_selected="@color/colorPrimary"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
     <com.zxyoyo.apk.ji.designview.JiInputView
+        app:layout_constraintTop_toTopOf="@+id/gl_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/input_view"
         android:layout_weight="1"
+        android:layout_marginBottom="2dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 
-</LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
