@@ -60,6 +60,7 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
         this.currentIndex = currentIndex;
         this.data = data;
         this.context = context;
+        selectedPosition = (currentIndex==0?0:-1);// 第一页默认选中第一个
         if(data!=null&&data.size()<MAX_COUNT){
             defaultBean = new GoodsTypeBean(context.getResources().getString(R.string.goods_type_add), R.drawable.goods_type_add);
             this.data.add(defaultBean);
