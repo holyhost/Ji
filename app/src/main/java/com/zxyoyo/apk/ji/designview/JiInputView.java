@@ -176,9 +176,10 @@ public class JiInputView extends ConstraintLayout implements View.OnClickListene
                 et_number.setText(getResult());
                 break;
             case R.id.iv_photo:
-                if(listener!=null) listener.onClick();
+                if(listener!=null) listener.onImageClick();
                 break;
             case R.id.btn_finish:
+                listener.onComplete();
                 onDestroy();
                 break;
             case R.id.iv_clear:
@@ -249,7 +250,8 @@ public class JiInputView extends ConstraintLayout implements View.OnClickListene
     }
     private JiInputClickListener listener;
     public interface JiInputClickListener{
-        void onClick();
+        void onImageClick();
+        void onComplete();
     }
 
     public void setListener(JiInputClickListener listener) {

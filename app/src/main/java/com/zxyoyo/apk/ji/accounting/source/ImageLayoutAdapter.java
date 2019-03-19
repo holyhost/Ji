@@ -91,7 +91,7 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ImageLayoutAdapter.ItemViewerHolder viewHolder, final int i) {
-        GoodsTypeBean item = data.get(i);
+        final GoodsTypeBean item = data.get(i);
         int icon = item.getIcon();
         if(icon>0){
             viewHolder.ivIcon.setImageDrawable(context.getResources().getDrawable(icon));
@@ -114,7 +114,7 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
                 }else {
                     // 点击的时候类别，记录选中位置，刷新界面，使其变为红色，同时，如果其它界面有选中，应该刷新掉
                     if(null!=listener){
-                        listener.onClick(iconName);
+                        listener.onClick(item);
                     }
                     selectedPosition = i;
                     notifyDataSetChanged();
@@ -244,7 +244,7 @@ public class ImageLayoutAdapter extends RecyclerView.Adapter<ImageLayoutAdapter.
     }
 
     public interface ImageLayoutClickListener{
-        void onClick(String typeName);
+        void onClick(GoodsTypeBean bean);
     }
 
 

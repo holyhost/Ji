@@ -29,12 +29,15 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.zxyoyo.apk.ji.BaseApplication;
 import com.zxyoyo.apk.ji.DotViewPagerAdapter;
 import com.zxyoyo.apk.ji.R;
+import com.zxyoyo.apk.ji.accounting.source.AccountBean;
 import com.zxyoyo.apk.ji.accounting.source.GoodsTypeBean;
 import com.zxyoyo.apk.ji.accounting.source.ImageLayoutAdapter;
 import com.zxyoyo.apk.ji.designview.JiInputView;
 import com.zxyoyo.apk.ji.designview.ZzInputDialog;
 import com.zxyoyo.apk.ji.designview.ZzViewPager;
+import com.zxyoyo.apk.ji.utils.DateTypeChangeUtil;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -49,15 +52,18 @@ public class AccountingFragment extends Fragment {
     private View view;
     private TextView tvDate;//日期
     private TextView tvDescribe;//备注
+    private TextView tv_del_add;//收入与支出
     private FrameLayout fl_container;
     private JiInputView jiInputView;
     private ZzViewPager view_pager;
     private String selectedName;//选中的icon名称
+    private String photoPath;//图片路径
     private List<ImageLayoutAdapter> listAdapters;
+    private int selectIcon;// 选择类型的icon
     private int currentPage = 0;//当前选中图标的页数，0开始
-    private int year;
-    private int month;
-    private int day;
+    private int year;// 年
+    private int month;// 月
+    private int day;// 日
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +78,7 @@ public class AccountingFragment extends Fragment {
         view_pager = view.findViewById(R.id.view_pager);
         tvDate = view.findViewById(R.id.tv_date);
         tvDescribe = view.findViewById(R.id.tv_describe);
+        tv_del_add = view.findViewById(R.id.tv_del_add);
         initView();
         return view;
     }
@@ -138,12 +145,27 @@ public class AccountingFragment extends Fragment {
         });
         jiInputView.setListener(new JiInputView.JiInputClickListener() {
             @Override
-            public void onClick() {
+            public void onImageClick() {
                 PictureSelector.create(AccountingFragment.this)
                         .openGallery(PictureMimeType.ofImage())
                         .maxSelectNum(1)
                         .isCamera(true)
                         .forResult(PictureConfig.CHOOSE_REQUEST);
+            }
+
+            @Override
+            public void onComplete(){
+                saveData();
+            }
+        });
+        tv_del_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.equals(tv_del_add.getText().toString(), getString(R.string.ji_common_expense))) {
+                    tv_del_add.setText(getString(R.string.ji_common_income));
+                }else{
+                    tv_del_add.setText(getString(R.string.ji_common_expense));
+                }
             }
         });
     }
@@ -169,8 +191,9 @@ public class AccountingFragment extends Fragment {
             listAdapters.add(adapter);
             adapter.setListener(new ImageLayoutAdapter.ImageLayoutClickListener() {
                 @Override
-                public void onClick(String typeName) {
-                    selectedName = typeName;
+                public void onClick(GoodsTypeBean bean) {
+                    selectedName = bean.getName();
+                    selectIcon = bean.getIcon();
                     currentPage = adapter.getCurrentIndex();
                     for(int k=0;k<listAdapters.size();k++){
                         if(currentPage!=k)
@@ -241,11 +264,36 @@ public class AccountingFragment extends Fragment {
                     // 图片、视频、音频选择结果回调
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
                     if (selectList != null && selectList.size() > 0) {
-                        jiInputView.setPhoto(selectList.get(0).getPath());
+                        String picPath = selectList.get(0).getPath();
+                        photoPath = picPath;
+                        jiInputView.setPhoto(picPath);
 
                     }
                     break;
             }
         }
+    }
+
+    /**
+     * 保存当前数据
+     */
+    private void saveData(){
+        AccountBean bean = new AccountBean();
+        bean.setType(TextUtils.equals(tv_del_add.getText().toString(), getString(R.string.ji_common_expense))?0:1);
+        bean.setNumber(jiInputView.getValue());
+        bean.setDetailType(selectedName);
+        bean.setPhoto(photoPath);
+        bean.setDescription(tvDescribe.getText().toString());
+        bean.setIcon(selectIcon);
+        try {
+            bean.setTime(DateTypeChangeUtil.stringToLong(year+""+month+""+day,DateTypeChangeUtil.DATE_FORMATE_YMD));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }finally {
+            bean.setTime(System.currentTimeMillis());
+            BaseApplication.getDaoSession().getAccountBeanDao().insert(bean);
+        }
+
+
     }
 }

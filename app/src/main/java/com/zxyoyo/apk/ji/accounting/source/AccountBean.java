@@ -41,8 +41,9 @@ public class AccountBean {
         this.description = description;
         this.photo = photo;
     }
-    @Generated(hash = 1267506976)
+
     public AccountBean() {
+        id = System.currentTimeMillis();
     }
     public long getId() {
         return this.id;
