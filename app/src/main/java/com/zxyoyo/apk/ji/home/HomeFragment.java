@@ -29,6 +29,9 @@ import butterknife.BindView;
 public class HomeFragment extends BaseListFragment {
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
+    private AccountAdapter adapter;
+    private List<AccountBean> accounts;
+
     @Override
     public int getLayoutResId() {
         return R.layout.fragment_home;
@@ -36,15 +39,23 @@ public class HomeFragment extends BaseListFragment {
 
     @Override
     public void finishCreateView(Bundle state) {
-        List<AccountBean> accounts = BaseApplication.getDaoSession().getAccountBeanDao().loadAll();
-        Log.e("size",accounts.size()+"");
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,true));
-        recyclerView.setAdapter(new AccountAdapter(accounts,getContext()));
+        adapter = new AccountAdapter(accounts, getContext());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     protected void loadData() {
         super.loadData();
+        accounts = BaseApplication.getDaoSession().getAccountBeanDao().loadAll();
+        Log.e("size", accounts.size()+"");
+    }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+        adapter.refreshData(accounts);
     }
 }

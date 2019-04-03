@@ -33,7 +33,6 @@ public abstract class BasePagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_list);
         toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         tl_indicator = findViewById(R.id.tl_indicator);
         viewPager = findViewById(R.id.view_pager);
         fab = findViewById(R.id.fab);
@@ -46,6 +45,8 @@ public abstract class BasePagerActivity extends AppCompatActivity {
         mFragmentList = initFragments();
         mTitles = initTitles();
         initView();
+        setSupportActionBar(toolbar);
+
 
     }
 
@@ -70,6 +71,9 @@ public abstract class BasePagerActivity extends AppCompatActivity {
         if(mTitles.length>1){
             tl_indicator.setupWithViewPager(viewPager);
 
+        }else {
+            tl_indicator.setVisibility(View.GONE);
+            toolbar.setTitle(mTitles[0]);
         }
     }
 

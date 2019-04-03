@@ -179,6 +179,7 @@ public class JiInputView extends ConstraintLayout implements View.OnClickListene
                 if(listener!=null) listener.onImageClick();
                 break;
             case R.id.btn_finish:
+                number = Double.parseDouble(et_number.getText().toString());
                 listener.onComplete();
                 onDestroy();
                 break;

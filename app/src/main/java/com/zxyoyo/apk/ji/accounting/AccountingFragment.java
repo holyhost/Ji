@@ -88,7 +88,7 @@ public class AccountingFragment extends Fragment {
         year = Integer.parseInt(String.valueOf(calendar.get(Calendar.YEAR)));
         month = Integer.parseInt(String.valueOf(calendar.get(Calendar.MONTH)))+1;
         day = Integer.parseInt(String.valueOf(calendar.get(Calendar.DATE)));
-        tvDate.setText((month<10?("0"+month):month)+"-"+day);
+        tvDate.setText((month<10?("0"+month):month)+"-"+(day<10?("0"+day):day));
         tvDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -286,7 +286,7 @@ public class AccountingFragment extends Fragment {
         bean.setDescription(tvDescribe.getText().toString());
         bean.setIcon(selectIcon);
         try {
-            bean.setTime(DateTypeChangeUtil.stringToLong(year+""+month+""+day,DateTypeChangeUtil.DATE_FORMATE_YMD));
+            bean.setTime(DateTypeChangeUtil.stringToLong(year+""+(month<10?("0"+month):month)+""+(day<10?("0"+day):day),DateTypeChangeUtil.DATE_FORMATE_YMD));
         } catch (ParseException e) {
             e.printStackTrace();
         }finally {

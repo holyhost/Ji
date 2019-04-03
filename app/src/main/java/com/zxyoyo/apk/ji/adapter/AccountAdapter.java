@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zxyoyo.apk.ji.R;
@@ -31,6 +32,10 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
         this.context = context;
     }
 
+    public void refreshData(List<AccountBean> datas){
+        this.datas = datas;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public AccountViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -40,6 +45,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     @Override
     public void onBindViewHolder(@NonNull AccountViewHolder accountViewHolder, int i) {
         accountViewHolder.tvName.setText(datas.get(i).getDetailType());
+        accountViewHolder.tvNumber.setText(datas.get(i).getNumber()+"");
+        accountViewHolder.ivIcon.setBackgroundResource(datas.get(i).getIcon());
     }
 
     @Override
@@ -50,9 +57,13 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     class AccountViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvName;
+        TextView tvNumber;
+        ImageView ivIcon;
         public AccountViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
+            tvNumber = itemView.findViewById(R.id.tv_number);
+            ivIcon = itemView.findViewById(R.id.iv_icon);
         }
     }
 }
